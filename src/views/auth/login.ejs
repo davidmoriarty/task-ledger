@@ -1,0 +1,26 @@
+<% const body = `
+  <header>
+    <h1>TaskLedger</h1>
+    <span class="muted">Server-rendered dashboard</span>
+  </header>
+
+  <div class="card">
+    <h2>Login</h2>
+    ${error ? `<p class="error">${error}</p>` : ""}
+
+    <form method="post" action="/ui/login" class="column">
+      <label for="email">
+        <span>Email</span><br />
+        <input id="email" name="email" type="email" autocomplete="email" required />
+      </label>
+
+      <label for="password">
+        <span>Password</span><br />
+        <input id="password" name="password" type="password" autocomplete="current-password" required />
+      </label>
+
+      <button type="submit">Login</button>
+    </form>
+  </div>
+`; %>
+<%- include("../layouts/main", { title: "Login - TaskLedger", body }) %>

@@ -1,0 +1,60 @@
+<%- include("../layouts/main", {
+  title: "Dashboard - TaskLedger",
+  body: `
+    <header>
+      <div>
+        <h1>Dashboard</h1>
+        <div class="muted">Logged in as <strong>${user.email}</strong></div>
+      </div>
+
+      <form method="post" action="/ui/logout">
+        <button type="submit">Logout</button>
+      </form>
+    </header>
+
+    <div class="card">
+      <h2>Add task</h2>
+      <form method="post" action="/ui/tasks" class="row">
+        <input name="title" type="text" placeholder="What needs doing?" maxlength="200" required />
+        <button type="submit">Add</button>
+      </form>
+    </div>
+  `
+}) %>
+
+<div class="card">
+  <h2>Tasks</h2>
+
+  <% if (tasks.length === 0) { %>
+    <p class="muted">No tasks yet.</p>
+  <% } else { %>
+    <ul>
+      <% tasks.forEach((t) => { %>
+        <li>
+          <div>
+            <strong><%= t.title %></strong>
+            <div class="muted">Updated: <%= t.updatedAt %></div>
+          </div>
+
+          <div class="row">
+            <span class="badge"><%= t.status %></span>
+
+            <form method="post" action="/ui/tasks/<%= t.id %>/toggle">
+              <button type="submit">
+                <%= t.status === "completed" ? "Mark active" : "Mark completed" %>
+              </button>
+            </form>
+
+            <form
+              method="post"
+              action="/ui/tasks/<%= t.id %>/delete"
+              data-confirm="delete-task"
+            >
+              <button type="submit">Delete</button>
+            </form>
+          </div>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+</div>

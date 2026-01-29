@@ -1,0 +1,8 @@
+# .gitignore
+
+.cookies.txt      # curl test artifact — correct
+.data/            # SQLite DB + session store — correct
+.DS_Store         # macOS noise — correct
+.env              # secrets — correct
+.idea/            # editor config — correct
+node_modules/     # dependencies — correct
