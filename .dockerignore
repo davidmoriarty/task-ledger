@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log.*
+yarn-debug.log*
+pnpm-debug.log*
+
+# OS / Editor
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Build output (if added later)
+dist/
+build/
+
+# SQLite databases (generated at runtime)
+*.sqlite
+*.sqlite3
+*.db
+
+# Cookie / session files
+.cookies.txt
+*.cookies.txt
+cookies.txt
+
+# Coverage / testing
+coverage/

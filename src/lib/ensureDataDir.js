@@ -3,9 +3,14 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 function ensureDataDir() {
-  const dataDir = path.resolve(process.cwd(), ".data");
+  // Fly volume mount (preferred)
+  const flyDataDir = "/data";
+
+  const dataDir = fs.existsSync(flyDataDir)
+    ? flyDataDir
+    : path.resolve(process.cwd(), ".data");
+
   fs.mkdirSync(dataDir, { recursive: true });
-  fs.mkdirSync(path.join(dataDir, "sessions"), { recursive: true });
   return dataDir;
 }
 
