@@ -21,11 +21,15 @@ This project intentionally prioritizes **core backend and web fundamentals** ove
 
 ## Screenshots
 
-### Login
-![Login screen](screenshots/login.png)
+Representative views highlighting semantic structure, responsive layout, and accessible UI patterns.
 
 ### Dashboard
-![Dashboard view](screenshots/dashboard.png)
+![Dashboard view showing authenticated task management](./docs/screenshots/dashboard.png)
+
+### Login
+![Login form with validation and session-based auth](./docs/screenshots/login.png)
+
+All interactions shown are keyboard-accessible and progressively enhanced.
 
 ---
  
@@ -112,6 +116,7 @@ Production:
 - CommonJS modules are used intentionally for compatibility and simplicity.
 - The UI is intentionally minimal and server-rendered to demonstrate classic request/response flows.
 - Emphasis is placed on correctness, clarity, and maintainability over novelty.
+- SQLite is used for persistence to keep the system self-contained and easy to inspect.
  
 ---
  
