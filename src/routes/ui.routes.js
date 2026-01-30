@@ -16,7 +16,7 @@ router.get("/login", (req, res) => {
   res.render("auth/login", { error: null });
 });
 
-router.post("/login", async (req, res) => {
+router.post("/login", async (req, res, next) => {
   const { email, password } = req.body;
 
   const user = findUserByEmail(email);
@@ -26,7 +26,11 @@ router.post("/login", async (req, res) => {
   if (!valid) return res.status(401).render("auth/login", { error: "Invalid credentials" });
 
   req.session.userId = user.id;
-  return res.redirect("/ui/dashboard");
+
+  req.session.save((err) => {
+    if (err) return next(err);
+    return res.redirect("/ui/dashboard");
+  })
 });
 
 router.post("/logout", (req, res) => {

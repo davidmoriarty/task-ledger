@@ -2,7 +2,7 @@
  
 A fundamentals-first Node.js + Express application featuring session-based authentication, SQLite persistence, and a minimal server-rendered dashboard for task management.
  
-This project intentionally prioritizes **core backend and web fundamentals** over framework complexity.
+This project intentionally prioritizes **backend and web fundamentals** over framework complexity.
  
 ---
  
@@ -119,7 +119,33 @@ Production:
 - SQLite is used for persistence to keep the system self-contained and easy to inspect.
  
 ---
+
+## Known Gotchas & Implementation Notes
+
+This project intentionally uses file-based sessions and SQLite to reflect common real-world Express setups. As a result, there are a few important behaviors worth calling out:
+
+### Session save timing
+
+- When using `express-session` with `session-file-store`, session persistence is asynchronous.
+- After successful login, the session must be explicitly saved before redirecting.
+- Without calling `req.session.save(...)`, the browser may follow the redirect before the session file and cookie are fully written, resulting in a one-time `401 Unauthorized` on the first dashboard load.
+- This is a common race condition in Express apps using file-based or async session stores.
  
+### File-backed persistence
+
+- User sessions and the SQLite database are stored under `.data/`.
+- Deleting this directory resets all users, sessions, and tasks.
+- This behavior is intentional for local development and demo clarity.
+
+### Development vs production differences
+
+- File-based session stores are convenient for demos but are not ideal for production.
+- A production deployment would typically replace this with a centralized store (Redis, database-backed sessions, etc.) to avoid race conditions and scaling issues.
+
+These behaviors are well-understood tradeoffs and are documented here to reflect real-world Express application concerns rather than abstracted or hidden behavior.
+
+---
+
 ## License
  
 MIT

@@ -2,6 +2,8 @@
 const express = require("express");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const { ensureDataDir } = require("./lib/ensureDataDir");
+const dataDir = ensureDataDir();
 const session = require("express-session");
 const FileStoreFactory = require("session-file-store");
 
@@ -24,6 +26,9 @@ app.use(morgan("dev"));
 app.set("view engine", "ejs");
 app.set("views", "src/views");
 
+// serve static before session
+app.use(express.static("src/public"));
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -36,7 +41,8 @@ const FileStore = FileStoreFactory(session);
 app.use(
   session({
     store: new FileStore({
-      path: ".data/sessions",
+      // absolute path
+      path: `${dataDir}/sessions`,
       retries: 0,
       logFn: () => {},
     }),
@@ -62,6 +68,5 @@ app.use("/auth", authRouter);
 app.use("/dashboard", dashboardRouter);
 app.use("/tasks", tasksRouter);
 app.use("/ui", uiRouter);
-app.use(express.static("src/public"));
 
 module.exports = { app };
