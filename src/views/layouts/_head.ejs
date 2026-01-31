@@ -12,8 +12,9 @@
       .card { border: 1px solid #ddd; border-radius: 12px; padding: 1rem; padding-bottom: 2rem; margin: 0 auto; margin-bottom: 1rem; }
       .row { display: flex; gap: .75rem; flex-wrap: wrap; align-items: flex-start; }
       .column { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .75rem; }
-      input[type="text"], input[type="email"], input[type="password"] { padding: .6rem .7rem; border-radius: 10px;
-      border: 1px solid #ccc; min-width: 260px; }
+      input[type="text"], input[type="email"], input[type="password"] {
+        padding: .6rem .7rem; border-radius: 10px; border: 1px solid #ccc; min-width: 260px;
+      }
       button { padding: .6rem .8rem; border-radius: 10px; border: 1px solid #ccc; background: #f6f6f6; cursor: pointer; }
       button:hover { background: #efefef; }
       ul { list-style: none; padding: 0; margin: 0; }
@@ -21,10 +22,24 @@
       .muted { color: #666; font-size: .9rem; }
       .badge { font-size: .8rem; padding: .15rem .5rem; border: 1px solid #ddd; border-radius: 999px; }
       .error { color: #b00020; }
+      .notice {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 14px;
+        border: 1px solid #e6d48c;
+        background: #fff7d6;
+        border-radius: 10px;
+        margin: 12px 0 16px;
+      }
+      .notice-close {
+        border: 0;
+        background: transparent;
+        font-size: 18px;
+        line-height: 1;
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
-    <%- body %>
-    <script src="/js/confirm-delete.js" defer></script>
-  </body>
-</html>

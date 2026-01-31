@@ -1,26 +1,40 @@
-<%- include("../layouts/main", {
-  title: "Dashboard - TaskLedger",
-  body: `
-    <header>
-      <div>
-        <h1>Dashboard</h1>
-        <div class="muted">Logged in as <strong>${user.email}</strong></div>
-      </div>
+<%- include("../layouts/_head", { title: "Dashboard - TaskLedger" }) %>
 
-      <form method="post" action="/ui/logout">
-        <button type="submit">Logout</button>
-      </form>
-    </header>
+<header>
+  <div>
+    <h1>Dashboard</h1>
+    <div class="muted">Logged in as <strong><%= user.email %></strong></div>
+  </div>
 
-    <div class="card">
-      <h2>Add task</h2>
-      <form method="post" action="/ui/tasks" class="row">
-        <input name="title" type="text" placeholder="What needs doing?" maxlength="200" required />
-        <button type="submit">Add</button>
-      </form>
+  <form method="post" action="/ui/logout">
+    <button type="submit">Logout</button>
+  </form>
+</header>
+
+<% if (isDemoUser) { %>
+  <div class="notice" role="note" aria-label="Demo mode notice">
+    <div>
+      <strong>Demo mode:</strong> Please don’t enter sensitive information.
+      Anything you add here may be visible to others.
     </div>
-  `
-}) %>
+
+    <button
+      type="button"
+      class="notice-close"
+      aria-label="Dismiss notice"
+    >
+      ×
+    </button>
+  </div>
+<% } %>
+
+<div class="card">
+  <h2>Add task</h2>
+  <form method="post" action="/ui/tasks" class="row">
+    <input name="title" type="text" placeholder="What needs doing?" maxlength="200" required />
+    <button type="submit">Add</button>
+  </form>
+</div>
 
 <div class="card">
   <h2>Tasks</h2>
@@ -58,3 +72,5 @@
     </ul>
   <% } %>
 </div>
+
+<%- include("../layouts/_foot") %>

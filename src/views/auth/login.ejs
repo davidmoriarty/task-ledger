@@ -1,26 +1,38 @@
-<% const body = `
-  <header>
-    <h1>TaskLedger</h1>
-    <span class="muted">Server-rendered dashboard</span>
-  </header>
+<%- include("../layouts/_head", { title: "Login - TaskLedger" }) %>
 
-  <div class="card">
-    <h2>Login</h2>
-    ${error ? `<p class="error">${error}</p>` : ""}
+<header>
+  <h1>TaskLedger</h1>
+  <span class="muted">Server-rendered dashboard</span>
+</header>
 
-    <form method="post" action="/ui/login" class="column">
-      <label for="email">
-        <span>Email</span><br />
-        <input id="email" name="email" type="email" autocomplete="email" required />
-      </label>
+<div class="card">
+  <h2>Login</h2>
+  <% if (error) { %>
+    <p class="error"><%= error %></p>
+  <% } %>
 
-      <label for="password">
-        <span>Password</span><br />
-        <input id="password" name="password" type="password" autocomplete="current-password" required />
-      </label>
+  <form method="post" action="/ui/login" class="column">
+    <label for="email">
+      <span>Email</span><br />
+      <input id="email" name="email" type="email" autocomplete="email" required />
+    </label>
 
-      <button type="submit">Login</button>
-    </form>
-  </div>
-`; %>
-<%- include("../layouts/main", { title: "Login - TaskLedger", body }) %>
+    <label for="password">
+      <span>Password</span><br />
+      <input id="password" name="password" type="password" autocomplete="current-password" required />
+    </label>
+
+    <button type="submit">Login</button>
+  </form>
+</div>
+
+<div class="card">
+  <h2>Demo Login</h2>
+  <p>Use this login to explore the dashboard without creating an account.</p>
+
+  <form method="post" action="/auth/demo">
+    <button type="submit">Try demo account</button>
+  </form>
+</div>
+
+<%- include("../layouts/_foot") %>

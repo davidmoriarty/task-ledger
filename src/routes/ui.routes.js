@@ -33,6 +33,27 @@ router.post("/login", async (req, res, next) => {
   })
 });
 
+router.post("/demo", async (req, res) => {
+  try {
+    const response = await fetch("http://localhost:3000/auth/demo", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (!response.ok) {
+      return res.status(500).render("auth/login", {
+        error: "Demo login is temporarily unavailable.",
+      });
+    }
+
+    return res.redirect("/ui/dashboard");
+  } catch {
+    return res.status(500).render("auth/login", {
+      error: "Demo login is temporarily unavailable.",
+    });
+  }
+});
+
 router.post("/logout", (req, res) => {
   req.session.destroy(() => {
     res.clearCookie("taskledger.sid");
@@ -44,7 +65,13 @@ router.get("/dashboard", requireAuth, (req, res) => {
   const user = findUserById(req.session.userId);
   const tasks = listTasksByUser(req.session.userId);
 
-  res.render("dashboard/index", { user, tasks });
+  const isDemoUser = user.email === "demo@taskledger.local";
+
+  res.render("dashboard/index", {
+    user,
+    tasks,
+    isDemoUser,
+  });
 });
 
 router.post("/tasks", requireAuth, (req, res) => {

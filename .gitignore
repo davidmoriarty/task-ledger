@@ -27,6 +27,10 @@ build/
 *.sqlite3
 *.db
 
+# Data
+.data/
+.data/**
+
 # Cookie / session files
 .cookies.txt
 *.cookies.txt

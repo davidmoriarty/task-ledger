@@ -1,6 +1,7 @@
 // src/routes/auth.routes.js
 const express = require('express');
 const bcrypt = require('bcrypt');
+
 const { findUserByEmail, createUser } = require('../db/queries/users');
 
 const router = express.Router();
@@ -48,6 +49,30 @@ router.post("/login", async (req, res) => {
   req.session.userId = user.id;
 
   res.json({ ok: true });
+});
+
+// POST /auth/demo
+router.post("/demo", async (req, res) => {
+  try {
+    const demoEmail = process.env.DEMO_EMAIL || "demo@taskledger.local";
+    const demoPassword = process.env.DEMO_PASSWORD || "demo_password_change_me";
+
+    let user = findUserByEmail(demoEmail);
+
+    if (!user) {
+      const passwordHash = await bcrypt.hash(demoPassword, 12);
+      user = createUser({ email: demoEmail, passwordHash });
+    }
+
+    res.req.session.userId = user.id;
+
+    // Ensure session is persisted before redirect
+    return req.session.save(() => res.redirect("/ui/dashboard"));
+  } catch {
+    return res.status(500).render("auth/login", {
+      error: "Demo login is temporarily unavailable.",
+    });
+  }
 });
 
 /**

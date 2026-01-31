@@ -117,6 +117,17 @@ Production:
 - The UI is intentionally minimal and server-rendered to demonstrate classic request/response flows.
 - Emphasis is placed on correctness, clarity, and maintainability over novelty.
 - SQLite is used for persistence to keep the system self-contained and easy to inspect.
+
+### Demo access
+
+The live deployment includes a **demo login** option on the login screen.
+
+- The demo account is created automatically on first use
+- No credentials are exposed in the UI
+- All data is persisted server-side using SQLite
+- This allows visitors to explore the app without registering
+
+This pattern is intentionally included to improve reviewability while keeping authentication mechanics explicit and controlled.
  
 ---
 
