@@ -1,7 +1,12 @@
 // src/routes/ui.routes.js
 const express = require("express");
 const bcrypt = require("bcrypt");
-const { requireAuth } = require("../middleware/auth");
+
+function requireUiAuth(req, res, next) {
+  if (req.session?.userId) return next();
+  return res.redirect("/ui/login");
+}
+
 const { findUserById, findUserByEmail } = require("../db/queries/users");
 const {
   listTasksByUser,
@@ -35,7 +40,7 @@ router.post("/login", async (req, res, next) => {
 
 router.post("/demo", async (req, res) => {
   try {
-    const response = await fetch("http://localhost:3000/auth/demo", {
+    const response = await fetch(`${req.protocol}://${req.get("host")}/auth/demo`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
     });
@@ -61,7 +66,7 @@ router.post("/logout", (req, res) => {
   });
 });
 
-router.get("/dashboard", requireAuth, (req, res) => {
+router.get("/dashboard", requireUiAuth, (req, res) => {
   const user = findUserById(req.session.userId);
   const tasks = listTasksByUser(req.session.userId);
 
@@ -74,14 +79,14 @@ router.get("/dashboard", requireAuth, (req, res) => {
   });
 });
 
-router.post("/tasks", requireAuth, (req, res) => {
+router.post("/tasks", requireUiAuth, (req, res) => {
   const title = String(req.body.title || "").trim();
   if (!title) return res.redirect("/ui/dashboard");
   createTask({ userId: req.session.userId, title });
   res.redirect("/ui/dashboard");
 });
 
-router.post("/tasks/:id/toggle", requireAuth, (req, res) => {
+router.post("/tasks/:id/toggle", requireUiAuth, (req, res) => {
   const taskId = Number(req.params.id);
   const tasks = listTasksByUser(req.session.userId);
   const t = tasks.find((x) => x.id === taskId);
@@ -93,7 +98,7 @@ router.post("/tasks/:id/toggle", requireAuth, (req, res) => {
   res.redirect("/ui/dashboard");
 });
 
-router.post("/tasks/:id/delete", requireAuth, (req, res) => {
+router.post("/tasks/:id/delete", requireUiAuth, (req, res) => {
   const taskId = Number(req.params.id);
   deleteTask({ userId: req.session.userId, taskId });
   res.redirect("/ui/dashboard");
