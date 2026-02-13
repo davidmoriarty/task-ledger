@@ -2,6 +2,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 
+const { ensureDemoUserAndSetSession } = require("../lib/demoLogin");
 const { findUserByEmail, createUser } = require('../db/queries/users');
 
 const router = express.Router();
@@ -22,12 +23,13 @@ router.post("/register", async (req, res) => {
   }
 
   const passwordHash = await bcrypt.hash(password, 12);
-
   const user = createUser({ email, passwordHash });
 
   req.session.userId = user.id;
-
-  res.status(201).json({ ok: true });
+  return req.session.save((err) => {
+    if (err) return res.status(500).json({ error: "Session error" });
+    return res.status(201).json({ ok: true });
+  });
 });
 
 /**
@@ -48,26 +50,17 @@ router.post("/login", async (req, res) => {
 
   req.session.userId = user.id;
 
-  res.json({ ok: true });
+  return req.session.save((err) => {
+    if (err) return res.status(500).json({ error: "Session error" });
+    return res.json({ ok: true });
+  });
 });
 
 // POST /auth/demo
 router.post("/demo", async (req, res) => {
   try {
-    const demoEmail = process.env.DEMO_EMAIL || "demo@taskledger.local";
-    const demoPassword = process.env.DEMO_PASSWORD || "demo_password_change_me";
-
-    let user = findUserByEmail(demoEmail);
-
-    if (!user) {
-      const passwordHash = await bcrypt.hash(demoPassword, 12);
-      user = createUser({ email: demoEmail, passwordHash });
-    }
-
-    res.req.session.userId = user.id;
-
-    // Ensure session is persisted before redirect
-    return req.session.save(() => res.redirect("/ui/dashboard"));
+    await ensureDemoUserAndSetSession(req);
+    return res.redirect("/ui/dashboard");
   } catch {
     return res.status(500).render("auth/login", {
       error: "Demo login is temporarily unavailable.",

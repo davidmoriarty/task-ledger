@@ -2,6 +2,8 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 
+const { ensureDemoUserAndSetSession } = require("../lib/demoLogin");
+
 function requireUiAuth(req, res, next) {
   if (req.session?.userId) return next();
   return res.redirect("/ui/login");
@@ -40,17 +42,7 @@ router.post("/login", async (req, res, next) => {
 
 router.post("/demo", async (req, res) => {
   try {
-    const response = await fetch(`${req.protocol}://${req.get("host")}/auth/demo`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-    });
-
-    if (!response.ok) {
-      return res.status(500).render("auth/login", {
-        error: "Demo login is temporarily unavailable.",
-      });
-    }
-
+    await ensureDemoUserAndSetSession(req);
     return res.redirect("/ui/dashboard");
   } catch {
     return res.status(500).render("auth/login", {
