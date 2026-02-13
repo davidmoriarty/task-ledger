@@ -32,6 +32,11 @@ app.use(express.static("src/public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+app.use((req, res, next) => {
+  res.locals.canonical = `${req.protocol}://${req.get("host")}${req.path}`;
+  next();
+});
+
 app.get("/health", (_req, res) => {
   res.status(200).json({ ok: true });
 });
