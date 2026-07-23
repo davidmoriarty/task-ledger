@@ -9,6 +9,36 @@ function requireUiAuth(req, res, next) {
   return res.redirect("/ui/login");
 }
 
+function formatTimeAgo(dateString) {
+  const date = new Date(`${dateString.replace(" ", "T")}Z`);
+  const seconds = Math.round((date.getTime() - Date.now()) / 1000);
+  const absoluteSeconds = Math.abs(seconds);
+
+  const units = [
+    { unit: "year", seconds: 31_536_000 },
+    { unit: "month", seconds: 2_592_000 },
+    { unit: "week", seconds: 604_800 },
+    { unit: "day", seconds: 86_400 },
+    { unit: "hour", seconds: 3_600 },
+    { unit: "minute", seconds: 60 },
+  ];
+
+  const formatter = new Intl.RelativeTimeFormat("en", {
+    numeric: "auto",
+  });
+
+  for (const entry of units) {
+    if (absoluteSeconds >= entry.seconds) {
+      return formatter.format(
+        Math.round(seconds / entry.seconds),
+        entry.unit
+      );
+    }
+  }
+
+  return "just now";
+}
+
 const { findUserById, findUserByEmail } = require("../db/queries/users");
 const {
   listTasksByUser,
@@ -60,7 +90,10 @@ router.post("/logout", (req, res) => {
 
 router.get("/dashboard", requireUiAuth, (req, res) => {
   const user = findUserById(req.session.userId);
-  const tasks = listTasksByUser(req.session.userId);
+  const tasks = listTasksByUser(req.session.userId).map((task) => ({
+    ...task,
+    updatedAtRelative: formatTimeAgo(task.updatedAt),
+  }));
 
   const isDemoUser = user.email === "demo@taskledger.local";
 

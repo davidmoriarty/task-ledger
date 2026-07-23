@@ -47,15 +47,19 @@
         <li class="task-item">
           <div class="task-details">
             <strong><%= t.title %></strong>
-            <div class="muted">Updated: <%= t.updatedAt %></div>
+            <div class="muted">Updated: <%= t.updatedAtRelative %></div>
+            <div class="task-status">
+              Status:
+              <span class="badge badge-<%= t.status %>">
+                <%= t.status.charAt(0).toUpperCase() + t.status.slice(1) %>
+              </span>
+            </div>
           </div>
 
-          <div class="row task-actions">
-            <span class="badge"><%= t.status %></span>
-
+          <div class="task-actions">
             <form method="post" action="/ui/tasks/<%= t.id %>/toggle">
-              <button type="submit">
-                <%= t.status === "completed" ? "Mark active" : "Mark completed" %>
+              <button type="submit" class="button-primary">
+                <%= t.status === "completed" ? "Mark active" : "Mark complete" %>
               </button>
             </form>
 
@@ -64,7 +68,7 @@
               action="/ui/tasks/<%= t.id %>/delete"
               data-confirm="delete-task"
             >
-              <button type="submit">Delete</button>
+              <button type="submit" class="button-delete">Delete</button>
             </form>
           </div>
         </li>
