@@ -23,11 +23,19 @@ This project intentionally prioritizes **backend and web fundamentals** over fra
 
 Representative views highlighting semantic structure, responsive layout, and accessible UI patterns.
 
-### Dashboard
-![Dashboard view showing authenticated task management](./docs/screenshots/dashboard.png)
-
 ### Login
-![Login form with validation and session-based auth](./docs/screenshots/login.png)
+![Login](./docs/screenshots/login(desktop).png)
+
+### Dashboard
+![Dashboard](./docs/screenshots/dashboard(desktop).png)
+
+### Mobile
+<p align="center">
+  <img
+    src="./docs/screenshots/dashboard(mobile).png"
+    alt="Mobile Dashboard"
+    width="320">
+</p>
 
 All interactions shown are keyboard-accessible and progressively enhanced.
 
