@@ -50,9 +50,12 @@
       .login-header {
         flex-direction: column;
         align-items: flex-start;
+        gap: .35rem;
         margin-bottom: 1rem;
       }
-      .login-header h1,
+      .login-header h1 { margin: 0; }
+      .login-header .muted { margin: 0; font-size: 0.8rem; }
+
       .dashboard-header h1 {
         margin-bottom: 0;
       }
@@ -81,8 +84,17 @@
         min-width: 0;
       }
 
+      .demo-form {
+        width: min(100%, 360px);
+      }
+
+      .demo-form button {
+        width: 100%;
+      }
+
       .button-primary { background: oklch(68.5% 0.169 237.323); color: white; }
       .button-primary:hover { background: oklch(58.8% 0.158 241.966); color: white; }
+
       .button-demo { background: oklch(69.6% 0.17 162.48); color: white; }
       .button-demo:hover { background: oklch(59.6% 0.145 163.225); color: white; }
 
@@ -96,20 +108,26 @@
       }
 
       @media (min-width: 640px) {
-        .login-header,
         .dashboard-header {
           flex-direction: row;
           align-items: center;
         }
 
         .login-header {
-          margin-bottom: 0;
+          flex-direction: row;
+          align-items: baseline;
+          gap: 1rem;
+          margin-bottom: 1rem;
         }
+        .login-header .muted { margin-left: auto; }
 
         .dashboard-header form,
         .dashboard-header form button {
           width: auto;
         }
+
+        .demo-form { width: auto; }
+        .demo-form button { width: auto; }
 
         .add-task-form {
           flex-direction: row;
