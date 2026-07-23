@@ -9,6 +9,11 @@ primary_region = "yyz"
 
 [build]
 
+[env]
+NODE_ENV = "production"
+PORT = "3000"
+DB_PATH = "/data/taskledger.db"
+
 [[mounts]]
 source = "data"
 destination = "/data"
