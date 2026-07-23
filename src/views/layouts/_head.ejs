@@ -14,15 +14,16 @@
       .card { border: 1px solid #ddd; border-radius: 12px; padding: 1rem; padding-bottom: 2rem; margin: 0 auto; margin-bottom: 1rem; }
       .row { display: flex; gap: .75rem; flex-wrap: wrap; align-items: flex-start; }
       .column { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .75rem; }
-      input[type="text"], input[type="email"], input[type="password"] {
+      input[type="text"], input[type="email"], input[type="password"], input[type="submit"], button[type="submit"] {
         padding: .6rem .7rem; border-radius: 10px; border: 1px solid #ccc; min-width: 260px;
       }
       button {
-        padding: .6rem .8rem; border-radius: 10px; border: 1px solid #ccc; background: #f6f6f6; color: #111; font-weight: 500; cursor: pointer; appearance: none; -webkit-appearance: none;
+        padding: .6rem .7rem; border-radius: 10px; border: 1px solid #ccc; background: #f6f6f6; color: #111; min-width: 260px; font-weight: 500; cursor: pointer; appearance: none; -webkit-appearance: none;
       }
       button:hover { background: #efefef; color: #000; }
       ul { list-style: none; padding: 0; margin: 0; }
       li { display: flex; justify-content: space-between; gap: 1rem; padding: .6rem 0; border-top: 1px solid #eee; }
+      .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border-width: 0; }
       .muted { color: #666; font-size: .9rem; }
       .badge { font-size: .8rem; padding: .15rem .5rem; border: 1px solid #ddd; border-radius: 999px; }
       .error { color: #b00020; }

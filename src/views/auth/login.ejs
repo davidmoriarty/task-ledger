@@ -11,14 +11,16 @@
     <p class="error"><%= error %></p>
   <% } %>
 
-  <form method="post" action="/ui/login" class="column">
-    <label for="email" class="sr-only">Email</label>
-    <input id="email" name="email" type="email" placeholder=Email" autocomplete="email" required />
+  <form method="post" action="/ui/login">
+    <div class="column">
+      <label for="email" class="sr-only">Email</label>
+      <input id="email" name="email" type="email" placeholder="Email" autocomplete="email" required />
 
-    <label for="password" class="sr-only">Password</label>
-    <input id="password" name="password" type="password" autocomplete="current-password" required />
+      <label for="password" class="sr-only">Password</label>
+      <input id="password" name="password" type="password" placeholder="Password" autocomplete="current-password" required />
 
-    <button type="submit">Login</button>
+      <button type="submit">Login</button>
+    </div>
   </form>
 </div>
 
