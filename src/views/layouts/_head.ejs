@@ -14,7 +14,7 @@
       .card { border: 1px solid #ddd; border-radius: 12px; padding: 1rem; padding-bottom: 2rem; margin: 0 auto; margin-bottom: 1rem; }
       .row { display: flex; gap: .75rem; flex-wrap: wrap; align-items: flex-start; }
       .column { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .75rem; }
-      input[type="text"], input[type="email"], input[type="password"], input[type="submit"] {
+      input[type="text"], input[type="email"], input[type="password"] {
         padding: .6rem .7rem; border-radius: 10px; border: 1px solid #ccc; min-width: 260px;
       }
       button {
@@ -28,22 +28,101 @@
       .badge { font-size: .8rem; padding: .15rem .5rem; border: 1px solid #ddd; border-radius: 999px; }
       .error { color: #b00020; }
       .notice {
-        display: flex;
-        gap: 12px;
-        align-items: center;
-        justify-content: space-between;
-        padding: 12px 14px;
+        position: relative;
+        display: block;
+        padding: 12px 44px 12px 14px;
         border: 1px solid #e6d48c;
         background: #fff7d6;
         border-radius: 10px;
         margin: 12px 0 16px;
       }
       .notice-close {
+        position: absolute;
+        top: 8px;
+        right: 8px;
         border: 0;
         background: transparent;
         font-size: 18px;
         line-height: 1;
         cursor: pointer;
+      }
+
+      .login-header {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+      }
+      .login-header h1,
+      .dashboard-header h1 {
+        margin-bottom: 0;
+      }
+
+      .dashboard-header {
+        flex-direction: column;
+        align-items: stretch;
+        margin-bottom: 1rem;
+      }
+      .dashboard-header > div {
+        min-width: 0;
+      }
+      .dashboard-header form,
+      .dashboard-header form button {
+        box-sizing: border-box;
+        width: 100%;
+      }
+
+      .login-fields {
+        width: min(100%, 360px);
+        margin-inline: auto;
+      }
+      .login-fields input, .login-fields button {
+        box-sizing: border-box;
+        width: 100%;
+        min-width: 0;
+      }
+
+      .button-primary { background: oklch(68.5% 0.169 237.323); color: white; }
+      .button-primary:hover { background: oklch(58.8% 0.158 241.966); color: white; }
+      .button-demo { background: oklch(69.6% 0.17 162.48); color: white; }
+      .button-demo:hover { background: oklch(59.6% 0.145 163.225); color: white; }
+
+      .add-task-form {
+        flex-direction: column;
+      }
+      .add-task-form input, .add-task-form button {
+        box-sizing: border-box;
+        width: 100%;
+        min-width: 0;
+      }
+
+      @media (min-width: 640px) {
+        .login-header,
+        .dashboard-header {
+          flex-direction: row;
+          align-items: center;
+        }
+
+        .login-header {
+          margin-bottom: 0;
+        }
+
+        .dashboard-header form,
+        .dashboard-header form button {
+          width: auto;
+        }
+
+        .add-task-form {
+          flex-direction: row;
+        }
+
+        .add-task-form input {
+          flex: 1;
+        }
+
+        .add-task-form button {
+          width: auto;
+          min-width: 100px;
+        }
       }
     </style>
   </head>

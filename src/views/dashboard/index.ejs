@@ -1,6 +1,6 @@
 <%- include("../layouts/_head", { title: "Dashboard - TaskLedger" }) %>
 
-<header>
+<header class="dashboard-header">
   <div>
     <h1>Dashboard</h1>
     <div class="muted">Logged in as <strong><%= user.email %></strong></div>
@@ -30,9 +30,9 @@
 
 <div class="card">
   <h2>Add task</h2>
-  <form method="post" action="/ui/tasks" class="row">
+  <form method="post" action="/ui/tasks" class="row add-task-form">
     <input name="title" type="text" placeholder="What needs doing?" maxlength="200" required />
-    <button type="submit">Add</button>
+    <button type="submit" class="button-primary">Add</button>
   </form>
 </div>
 
@@ -44,13 +44,13 @@
   <% } else { %>
     <ul>
       <% tasks.forEach((t) => { %>
-        <li>
-          <div>
+        <li class="task-item">
+          <div class="task-details">
             <strong><%= t.title %></strong>
             <div class="muted">Updated: <%= t.updatedAt %></div>
           </div>
 
-          <div class="row">
+          <div class="row task-actions">
             <span class="badge"><%= t.status %></span>
 
             <form method="post" action="/ui/tasks/<%= t.id %>/toggle">

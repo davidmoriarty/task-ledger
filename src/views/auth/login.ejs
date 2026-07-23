@@ -1,6 +1,6 @@
 <%- include("../layouts/_head", { title: "Login - TaskLedger" }) %>
 
-<header>
+<header class="login-header">
   <h1>TaskLedger</h1>
   <span class="muted">Server-rendered dashboard</span>
 </header>
@@ -12,14 +12,14 @@
   <% } %>
 
   <form method="post" action="/ui/login">
-    <div class="column">
+    <div class="column login-fields">
       <label for="email" class="sr-only">Email</label>
       <input id="email" name="email" type="email" placeholder="Email" autocomplete="email" required />
 
       <label for="password" class="sr-only">Password</label>
       <input id="password" name="password" type="password" placeholder="Password" autocomplete="current-password" required />
 
-      <button type="submit">Login</button>
+      <button type="submit" class="button-primary">Login</button>
     </div>
   </form>
 </div>
@@ -29,7 +29,7 @@
   <p>Use this login to explore the dashboard without creating an account.</p>
 
   <form method="post" action="/auth/demo">
-    <button type="submit">Try demo account</button>
+    <button type="submit" class="button-demo">Try demo account</button>
   </form>
 </div>
 
