@@ -28,6 +28,16 @@ app.set("views", "src/views");
 
 // serve static before session
 app.use(express.static("src/public"));
+app.use((req, res, next) => {
+  if (req.accepts(["html", "json"]) === "html") {
+    res.setHeader(
+      "Cache-Control",
+      "private, no-store, no-transform",
+    );
+  }
+
+  next();
+});
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
