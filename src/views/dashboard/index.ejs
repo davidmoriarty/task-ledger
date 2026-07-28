@@ -11,70 +11,72 @@
   </form>
 </header>
 
-<% if (isDemoUser) { %>
-  <div class="notice" role="note" aria-label="Demo mode notice">
-    <div>
-      <strong>Demo mode:</strong> Please don’t enter sensitive information.
-      Anything you add here may be visible to others.
+<main>
+  <% if (isDemoUser) { %>
+    <div class="notice" role="note" aria-label="Demo mode notice">
+      <div>
+        <strong>Demo mode:</strong> Please don’t enter sensitive information.
+        Anything you add here may be visible to others.
+      </div>
+
+      <button
+        type="button"
+        class="notice-close"
+        aria-label="Dismiss notice"
+      >
+        ×
+      </button>
     </div>
-
-    <button
-      type="button"
-      class="notice-close"
-      aria-label="Dismiss notice"
-    >
-      ×
-    </button>
-  </div>
-<% } %>
-
-<div class="card">
-  <h2>Add task</h2>
-  <form method="post" action="/ui/tasks" class="row add-task-form">
-    <input name="title" type="text" placeholder="What needs doing?" maxlength="200" required />
-    <button type="submit" class="button-primary">Add</button>
-  </form>
-</div>
-
-<div class="card">
-  <h2>Tasks</h2>
-
-  <% if (tasks.length === 0) { %>
-    <p class="muted">No tasks yet.</p>
-  <% } else { %>
-    <ul>
-      <% tasks.forEach((t) => { %>
-        <li class="task-item">
-          <div class="task-details">
-            <strong><%= t.title %></strong>
-            <div class="muted">Updated: <%= t.updatedAtRelative %></div>
-            <div class="task-status">
-              Status:
-              <span class="badge badge-<%= t.status %>">
-                <%= t.status.charAt(0).toUpperCase() + t.status.slice(1) %>
-              </span>
-            </div>
-          </div>
-
-          <div class="task-actions">
-            <form method="post" action="/ui/tasks/<%= t.id %>/toggle">
-              <button type="submit" class="button-primary">
-                <%= t.status === "completed" ? "Mark active" : "Mark complete" %>
-              </button>
-            </form>
-
-            <form
-              method="post"
-              action="/ui/tasks/<%= t.id %>/delete"
-              data-confirm="delete-task"
-            >
-              <button type="submit" class="button-delete">Delete</button>
-            </form>
-          </div>
-        </li>
-      <% }) %>
-    </ul>
   <% } %>
-</div>
+
+  <div class="card">
+    <h2>Add task</h2>
+    <form method="post" action="/ui/tasks" class="row add-task-form">
+      <input name="title" type="text" placeholder="What needs doing?" maxlength="200" required />
+      <button type="submit" class="button-primary">Add</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Tasks</h2>
+
+    <% if (tasks.length === 0) { %>
+      <p class="muted">No tasks yet.</p>
+    <% } else { %>
+      <ul>
+        <% tasks.forEach((t) => { %>
+          <li class="task-item">
+            <div class="task-details">
+              <strong><%= t.title %></strong>
+              <div class="muted">Updated: <%= t.updatedAtRelative %></div>
+              <div class="task-status">
+                Status:
+                <span class="badge badge-<%= t.status %>">
+                  <%= t.status.charAt(0).toUpperCase() + t.status.slice(1) %>
+                </span>
+              </div>
+            </div>
+
+            <div class="task-actions">
+              <form method="post" action="/ui/tasks/<%= t.id %>/toggle">
+                <button type="submit" class="button-primary">
+                  <%= t.status === "completed" ? "Mark active" : "Mark complete" %>
+                </button>
+              </form>
+
+              <form
+                method="post"
+                action="/ui/tasks/<%= t.id %>/delete"
+                data-confirm="delete-task"
+              >
+                <button type="submit" class="button-delete">Delete</button>
+              </form>
+            </div>
+          </li>
+        <% }) %>
+      </ul>
+    <% } %>
+  </div>
+</main>
 
 <%- include("../layouts/_foot") %>
