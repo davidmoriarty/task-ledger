@@ -27,7 +27,12 @@ app.set("view engine", "ejs");
 app.set("views", "src/views");
 
 // serve static before session
-app.use(express.static("src/public"));
+app.use(
+  express.static("src/public", {
+    maxAge: "30d"
+  }),
+);
+
 app.use((req, res, next) => {
   if (req.accepts(["html", "json"]) === "html") {
     res.setHeader(
